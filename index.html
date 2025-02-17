@@ -1,118 +1,130 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="ko">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.css">
-  <link href="./css/thumbnail-gallery.css" rel="stylesheet" />
-
   <style>
-    .tz-gallery {
-      padding: 40px;
+    /* 제목 스타일 */
+    .gallery-title {
+      text-align: center;
+      font-size: 1.8rem;
+      font-weight: bold;
+      margin: 20px 0;
     }
 
-    .tz-gallery .thumbnail {
-      padding: 0;
-      margin-bottom: 30px;
-      background-color: #fff;
-      border-radius: 4px;
-      border: none;
-      transition: 0.15s ease-in-out;
-      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.06);
+    /* 반응형 갤러리 컨테이너 */
+    .gallery-container {
+      display: flex;
+      flex-wrap: wrap;  /* 여러 줄로 자동 배치 */
+      gap: 15px;  /* 사진 간격 */
+      justify-content: center;  /* 중앙 정렬 */
+      padding: 20px;
     }
 
-    .tz-gallery .thumbnail:hover {
-      transform: translateY(-10px) scale(1.02);
+    /* 이미지 썸네일 */
+    .thumbnail {
+      width: calc(33.333% - 15px); /* 기본 3열 */
+      max-width: 300px; /* 최대 크기 제한 */
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease-in-out;
     }
 
-    .baguetteBox-button {
-      background-color: transparent !important;
-    }
-
-
-    .carousel-inner>.item>a>img,
-    .carousel-inner>.item>img,
-    .img-responsive,
-    .thumbnail a>img,
-    .thumbnail>img {
-      display: block;
-      max-width: 100%;
+    .thumbnail img {
+      width: 100%;
       height: auto;
+      display: block;
+    }
+
+    .thumbnail:hover {
+      transform: translateY(-5px);
+    }
+
+    /* 반응형 - 작은 화면에서는 2열, 모바일에서는 1열 */
+    @media (max-width: 1024px) {
+      .thumbnail {
+        width: calc(50% - 15px); /* 화면이 줄어들면 2열 */
+      }
+    }
+
+    @media (max-width: 600px) {
+      .thumbnail {
+        width: 100%; /* 모바일에서는 1열 */
+      }
     }
   </style>
-
 </head>
 
 <body>
 
-
   <main>
-
+    <!-- 제목 추가 -->
+    <h2 class="gallery-title">기쁨지역아동센터: 캐릭터 키링 & 크리스마스 팝업 엽서</h2>
 
     <section id="gallery">
-      <div class=" gallery-container container">
-        <div class="tz-gallery">
-
-          <div class="row">
-
-            <!---------------------------------------------->
-            <div data-aos="flip-up" class="col-sm-6 col-md-4">
-              <div class="thumbnail">
-                <a class="lightbox" href="1.jpg">
-                  <img src="1.jpg">
-                </a>
-              </div>
-            </div>
-
-            <!---------------------------------------------->
-
-            <div data-aos="flip-up" data-aos-delay="20" class="col-sm-6 col-md-4">
-              <div class="thumbnail">
-                <a class="lightbox" href="2.jpg">
-                  <img src="2.jpg">
-                </a>
-              </div>
-            </div>
-            <!---------------------------------------------->
-
-            <div data-aos="flip-up" data-aos-delay="40" class="col-sm-6 col-md-4">
-              <div class="thumbnail">
-                <a class="lightbox" href="3.jpg">
-                  <img src="3.jpg">
-                </a>
-
-              </div>
-            </div>
-            <!---------------------------------------------->
-
-            <div data-aos="flip-up" data-aos-delay="60" class="col-sm-6 col-md-4">
-              <div class="thumbnail">
-                <a class="lightbox" href="4.jpg">
-                  <img src="4.jpg">
-                </a>
-              </div>
-            </div>
-            <!---------------------------------------------->
-
-
-
-
-
-
-          </div>
-        </div>
-      </div>
-
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.js"></script>
-      <script>
-        baguetteBox.run('.tz-gallery');
-      </script>
-
+      <div class="gallery-container" id="galleryContainer"></div>
     </section>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.js"></script>
+    <script>
+      // 사용할 이미지 리스트 (없는 이미지는 자동으로 제외)
+      const imageList = [
+        "1.jpg",
+        "2.jpg",
+        "3.jpg",
+        "4.jpg",
+        "5.jpg",
+        "6.jpg",
+        "7.jpg",
+        "8.jpg",
+        "9.jpg",
+        "10.jpg"
+      ];
+
+      const galleryContainer = document.getElementById("galleryContainer");
+
+      // 이미지를 동적으로 추가하는 함수
+      function loadImages() {
+        imageList.forEach((imageSrc) => {
+          const img = new Image();
+          img.src = imageSrc;
+          
+          // 이미지가 정상적으로 로드된 경우에만 추가
+          img.onload = function () {
+            const thumbnail = document.createElement("div");
+            thumbnail.classList.add("thumbnail");
+
+            const link = document.createElement("a");
+            link.classList.add("lightbox");
+            link.href = imageSrc;
+
+            img.alt = "갤러리 이미지";
+
+            link.appendChild(img);
+            thumbnail.appendChild(link);
+            galleryContainer.appendChild(thumbnail);
+          };
+
+          // 이미지가 로드되지 않으면 무시
+          img.onerror = function () {
+            console.warn(`이미지 로드 실패: ${imageSrc}`);
+          };
+        });
+
+        // baguetteBox (이미지 확대 효과) 적용
+        setTimeout(() => {
+          baguetteBox.run(".gallery-container");
+        }, 500);
+      }
+
+      loadImages();
+    </script>
 
   </main>
 
-
+</body>
 </html>
