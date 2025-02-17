@@ -3,13 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>기쁨지역아동센터</title>
+  <title>도담분당동지역아동센터</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.css">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <!-- Masonry 라이브러리 추가 -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/4.2.2/masonry.pkgd.min.js"></script>
-
   <style>
 
     /* 메뉴 버튼을 오른쪽 상단에 배치 */
@@ -119,8 +116,8 @@
   <div class="menu-container">
     <button class="menu-button">메뉴</button>
     <div class="menu">
-      <a href="page1.html">기쁨지역아동센터</a>
-      <a href="dodam.html">도담분당동지역아동센터</a>
+      <a href="index.html">기쁨지역아동센터</a>
+      <a href="page2.html">새로운 갤러리</a>
       <a href="page3.html">또 다른 갤러리</a>
       <a href="page4.html">마지막 갤러리</a>
     </div>
@@ -128,7 +125,7 @@
 
   <main>
     <!-- 제목 추가 -->
-    <h2 class="gallery-title">기쁨지역아동센터: 캐릭터 키링 & 크리스마스 팝업 엽서</h2>
+    <h2 class="gallery-title">도담분당동지역아동센터 : 캐릭터 키링 </h2>
 
     <section id="gallery">
       <div class="gallery-container" id="galleryContainer"></div>
@@ -146,12 +143,14 @@
         }
       }
 
+      // 사용할 이미지 리스트 (없는 이미지는 자동으로 제외)
+
       let imageList = [];
       if (document.title.includes("기쁨지역아동센터")) {
         imageList = ["1.jpg", "2.jpg", "3.jpg", "4.jpg" ];
 
       } else if (document.title.includes("도담분당동지역아동센터")) {
-        imageList = ["art1.png", "art2.jpg", "art3.jpeg"];
+        imageList = ["d1.jpg", "d2.png", "d3.jpg","d4.png","d5.png"];
       
       } else if (document.title.includes("또 다른 갤러리")) {
         imageList = ["event1.jpg", "event2.jpg", "event3.jpg", "event4.png"];
@@ -159,6 +158,7 @@
       } else if (document.title.includes("마지막 갤러리")) {
         imageList = ["final1.jpg", "final2.jpg", "final3.png"];
       }
+      
 
       const galleryContainer = document.getElementById("galleryContainer");
 
